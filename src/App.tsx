@@ -1,19 +1,35 @@
 import Header from "./components/Header";
+import InfoCard from "./components/InfoCard";
 import SearchForm from "./components/SearchForm";
+import StatusMessage from "./components/StatusMessage";
 import { useIpTracker } from "./hooks/useIpTracker";
 
 function App() {
-  const { isLoading, searchIp } = useIpTracker();
+  const {
+    ipData,
+    isLoading,
+    error,
+    searchIp,
+  } = useIpTracker();
 
   return (
-    <main>
+    <div className="app">
       <Header>
         <SearchForm
           isLoading={isLoading}
           onSearch={searchIp}
         />
       </Header>
-    </main>
+
+      <main>
+        <StatusMessage
+          isLoading={isLoading}
+          error={error}
+        />
+
+        {ipData && <InfoCard ipData={ipData} />}
+      </main>
+    </div>
   );
 }
 
