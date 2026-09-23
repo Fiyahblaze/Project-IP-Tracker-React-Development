@@ -1,7 +1,18 @@
+import Header from "./components/Header";
+import SearchForm from "./components/SearchForm";
+import { useIpTracker } from "./hooks/useIpTracker";
+
 function App() {
+  const { isLoading, searchIp } = useIpTracker();
+
   return (
     <main>
-      <h1>IP Address Tracker</h1>
+      <Header>
+        <SearchForm
+          isLoading={isLoading}
+          onSearch={searchIp}
+        />
+      </Header>
     </main>
   );
 }
