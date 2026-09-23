@@ -6,7 +6,10 @@ function isIpAddress(searchTerm: string): boolean {
   return /^\d{1,3}(\.\d{1,3}){3}$/.test(searchTerm);
 }
 
-export async function fetchIpData(searchTerm = ""): Promise<IpData> {
+export async function fetchIpData(
+  searchTerm = "",
+  signal?: AbortSignal,
+): Promise<IpData> {
   const apiKey = import.meta.env.VITE_IPIFY_API_KEY;
 
   if (!apiKey) {
@@ -21,7 +24,7 @@ export async function fetchIpData(searchTerm = ""): Promise<IpData> {
     url.searchParams.set(searchType, searchTerm);
   }
 
-  const response = await fetch(url);
+  const response = await fetch(url, { signal });
 
   if (!response.ok) {
     throw new Error("Unable to find that IP address or domain.");
